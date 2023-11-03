@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryEntity findCategoryById(Long id) {
-        return null;
+        return categoryRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -31,6 +31,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryEntity updateCategory(Long id, CategoryEntity categoryEntity) {
-        return null;
+       CategoryEntity category = categoryRepository.findById(id).orElse(null);
+
+       if (category != null){
+           category.setName(categoryEntity.getName());
+           return categoryRepository.save(category);
+       }else {
+           return null;
+       }
     }
+
 }

@@ -3,12 +3,9 @@ package com.ijse.supermarket.Controller;
 import com.ijse.supermarket.entity.CategoryEntity;
 import com.ijse.supermarket.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,4 +30,19 @@ public class CategoryController {
     public ResponseEntity<List<CategoryEntity>> getAllCategory(){
         return ResponseEntity.ok().body(categoryService.getAllCategories());
     }
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<CategoryEntity> getCategoryById(@PathVariable Long id){
+        CategoryEntity categoryEntity = categoryService.findCategoryById(id);
+        if (categoryEntity != null){
+            return ResponseEntity.ok().body(categoryEntity);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<CategoryEntity> updateCategory(@PathVariable Long id,@RequestBody CategoryEntity entity){
+       return ResponseEntity.ok().body(categoryService.updateCategory(id,entity));
+    }
+
 }
