@@ -1,9 +1,15 @@
 package com.ijse.supermarket.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "product")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class ProductEntity {
     @Id
